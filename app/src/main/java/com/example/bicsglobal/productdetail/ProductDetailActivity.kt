@@ -16,16 +16,23 @@ import com.example.bicsglobal.databinding.ActivityProductDetailBinding
 
 class ProductDetailActivity : AppCompatActivity() {
     lateinit var binding:ActivityProductDetailBinding
+    lateinit var url:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail)
         binding.productName.text= SpannableStringBuilder( intent.getStringExtra("title"))
         binding.tvDescription.text= SpannableStringBuilder( intent.getStringExtra("detail"))
-        var url:String= SpannableStringBuilder( intent.getStringExtra("image")).toString()
+        if ( intent.getStringExtra("image")!=null){
+             url= SpannableStringBuilder( intent.getStringExtra("image")).toString()
+        }
         binding.tvToolbarTitle.text= SpannableStringBuilder( intent.getStringExtra("title"))
         binding.publish.text= SpannableStringBuilder( intent.getStringExtra("publish"))
-        binding.author.text= SpannableStringBuilder( intent.getStringExtra("author"))
+        if (intent.getStringExtra("author")!=null){
+            binding.author.text= SpannableStringBuilder( intent.getStringExtra("author"))
+        }else{
+            binding.author.visibility=View.GONE
+        }
         var link:String= SpannableStringBuilder( intent.getStringExtra("link")).toString()
 
         if (url!=null)
@@ -42,6 +49,11 @@ class ProductDetailActivity : AppCompatActivity() {
         anim.startOffset = 20
         anim.repeatMode = Animation.REVERSE
         anim.repeatCount = Animation.INFINITE
+        if (link!=null){
+            binding.tvMore.visibility=View.VISIBLE
+        }else{
+            binding.tvMore.visibility=View.GONE
+        }
         binding.tvMore.startAnimation(anim)
         binding.tvMore.setOnClickListener(View.OnClickListener {
             val intent = Intent()

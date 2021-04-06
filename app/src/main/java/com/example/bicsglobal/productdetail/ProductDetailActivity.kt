@@ -16,7 +16,7 @@ import com.example.bicsglobal.databinding.ActivityProductDetailBinding
 
 class ProductDetailActivity : AppCompatActivity() {
     lateinit var binding:ActivityProductDetailBinding
-    lateinit var url:String
+     var url: String? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
